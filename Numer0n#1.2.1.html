@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+    <head>
+        <meta charset='UTF-8'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="vieeport" content="eidth=device-eidth, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
+        <title>Numer0n</title>
+    </head>
+    <body>
+        <h1>ヌメロン</h1>
+        <div id='bons'>
+        <button onclick=link()>ルール解説</button>
+        <button type= button onclick=start()>スタート</button>
+        </div>
+        <img src="https://i3.gamebiz.jp/images/original/70149381952b3c0603bba30011.jpg" class="im">
+        <div class="memo"><input type="button" value="リタイヤ！" onclick="window.location.reload();" /></div>
+        <div id="box"><p></p></div>
+        <script>
+            //
+            var parr;
+            var num = ["0","1","2","3","4","5","6","7","8","9"];
+            var num2 = ["0","1","2","3","4","5","6","7","8","9"];
+            var rs ="";
+            var bite = 0;
+            var eat = 0;
+            var af;
+            var ths = [];
+            var tex2="";
+            var tex ="";
+            var log=[];
+            var time=0;
+
+            var sf
+            function link(){
+                open("https://henn6.tokyo/archives/356")
+            }
+            function make2(t){
+                //修正済み
+                var rs2="";
+                var num3 = Array.from(num2);
+                var tex2="";
+                for (let time =0;time<t;time++){
+                    tex = rdn2(num2.length);
+                    console.log(tex);
+                    while (num3[tex] == undefined || tex2.indexOf(num3[tex]) != -1){
+                        tex = rdn2(num2.length);
+                        console.log("unf || same");
+                    }
+                    tex2 = tex2+num3[tex]
+                    //delete num3[tex]; //←これが不正
+                    num3.splice(tex, 1);//←これが正解
+                }
+                if (rs2.indexOf(undefined) == -1){
+                    return tex2;
+                }else{
+                }
+            }
+            function mkc(af2){
+                if (af2 == 0){
+                    test = make2(3);
+                    while (test == undefined){
+                        test = make2(3);
+                        console.log("unf");
+                    }
+                tarr = key(test);
+                }
+                if (af2 == 1){
+
+                }
+
+            }
+            function ans(){
+                var ptext = window.prompt("自分の答えの数字を入れてください。");
+                while (ptext == ""){
+                    ptext = window.prompt("自分の答えの数字を入れてください！");
+                }
+                while (ptext.length != 3){
+                    ptext = window.prompt("自分の答えの数字を”3桁で”入れてください！");
+                }
+                mes("あなたの答え:"+ptext);
+                mes("対戦相手の答え:???")
+                mes("============================================");
+                parr = key(ptext);//自分の数字の配列版
+                return parr;
+            }
+            /*未使用↓
+            function next(){
+                mkc(0);//test:rt
+                mes("対戦相手:"+test);
+                jed(tarr,parr);
+                mes("対戦相手:"+bite+"bite,"+eat+"eat");
+                mes("============================================")
+                mes("何かのキーを押して続行");
+
+            }
+            */
+            function jed(strg,str) {
+                eat =0;
+                bite =0;
+                var text1 = strg[0];//1
+                var text2 = strg[1];//2
+                var text3 = strg[2];//3
+
+                if (str.indexOf(text1) !== -1){//1=1
+                    if (str[0] == text1){
+                        eat++;
+                        console.log("1:eat");
+                    }else{
+                        bite++;
+                        console.log("1:bite");
+                    }
+                }
+                if (str.indexOf(text2) !== -1){
+                    if (str[1] == text2){
+                        eat++;
+                        console.log("2:eat");
+                    }else{
+                        bite++;
+                        console.log("2:bite");
+                    }
+                }
+                if (str.indexOf(text3) !==-1){
+                    if (str[2] == text3){
+                        eat++;
+                        console.log("3:eat");
+                    }else{
+                        bite++;
+                        console.log("3:bite");
+                    }
+                }
+            }
+            if (eat == 3){
+                bite = 0;
+            }
+            /*
+            function job(rff){//rff CPU選択 未使用
+                log.push(rff);
+                mes("対戦相手のコール:"+rff+"");
+                var serc = key(rff);
+                jed(parr,serc);
+                mes("対戦相手:"+bite+"bite,"+eat+"eat");
+                mes("============================================")
+                mes("何かのキーを押して続行");
+                document.addEventListener('keyup', (event) => {
+                var ans = window.prompt("");
+                mes("あなたのコール:"+ans);
+                var anrr = key(ans);
+                jed(carr,anrr);
+                mes("あなた:"+bite+"bite,"+eat+"eat");
+                mes("============================================")
+                document.removeEventListener('keyup', (event));
+                });
+            }
+            */
+            function exp() {
+                alert("このゲームはヌメロンというゲームです。");
+                alert("ヌメロンは相手の数字を先にあてるゲームです。");
+                alert("このサイトでは、CPUと対戦することができます。");
+                alert("最初に、スタートボタンを押して、自分の数字を３桁で入力してください。");
+                alert("CPUの数字はランダムで決定します。")
+                alert("まず、先攻で相手が３桁の数字を出します。");
+                alert("その後にObite,Oeatと出てきます。");
+                alert("biteとは、数字はあっているが、桁が間違っている数、eatとは、数字も桁もあっているということです。");
+                alert("そのあと、自分が相手の数字を当てます。");
+                alert("同じようにbiteとeatが出てきます。");
+                alert("それを繰り返し、先に分かったほうが勝ちです。");
+                alert("それでは、スタートボタンを押してゲームを開始しましょう。");
+            }
+            function rdn() {
+                return Math.floor(Math.random() * num.length);
+            }
+            function rdn2(t){
+                return Math.floor(Math.random()* t);//0~t
+            }
+            function mes(text){
+                let textbox_element = document.getElementById("box");
+                var ne = document.createElement('p2');
+                //文字色変更
+                if (text.indexOf("対戦相手") == 0){
+                    var ne = document.createElement('p3');
+                    console.log("3");
+                }
+                if(text.indexOf("あなた") == 0){
+                    var ne = document.createElement('p4')
+                    console.log("4")
+                }
+                if(text.indexOf("！") != -1){
+                    var ne = document.createElement('p5')
+                    console.log("5")
+                }
+                ne.textContent = text;
+                textbox_element.appendChild(ne);
+                var ne = document.createElement('br');
+                textbox_element.appendChild(ne);
+                var elm = document.documentElement;
+                var bottom = elm.scrollHeight - elm.clientHeight;
+                //window.scroll(0, bottom);
+            }
+            function key(str2){
+                let key1 = str2.toString().charAt(0);
+                let key2 = str2.toString().charAt(1);
+                let key3 = str2.toString().charAt(2);
+                return [key1,key2,key3];
+            }
+            function make(t){//result is "rs"
+
+            var num =["0","1","2","3","4","5","6","7","8","9"];//出せうる数
+            var rs ="";
+            for (let time = 0;time<t;time++){
+                var text = rdn();
+                rs = rs+num[text];
+                delete num[text];
+            }
+            if(rs.indexOf(undefined) == -1){
+                return rs;
+            }else{
+                make(t);
+            }
+            }
+            function start(){
+                var num =["0","1","2","3","4","5","6","7","8","9"];
+                let element = document.getElementById('bons');
+                element.remove();
+                var se = make(3);
+                while (se == undefined){
+                    se = make(3);
+                    console.log("unf");
+                }
+
+
+                //alert(se);//cpu-number
+                var carr = key(se);
+                //alert(carr);
+                var parr = ans();
+                var ptext = key(parr);
+                var rts = make(3);
+                if (rts == undefined){
+                    rts = make(3);
+                    console.log("rts");
+                }
+                if (rts == undefined){
+                    rts = make(3);
+                    console.log("rts");
+                }
+                if (rts == undefined){
+                    rts = make(3);
+                    console.log("rts");
+                }
+                if (rts == undefined){
+                    rts = make(3);
+                    console.log("rts");
+                }
+                    function play(rts2){
+                        function event(){
+                            document.removeEventListener('keyup',event)
+                            console.log("=next=")
+                            mes("============================================")
+
+                            var ans = window.prompt("相手の数字だと思うものを入れてください。");
+                            while (ans ==""){
+                                ans = window.prompt("相手の数字だと思うものを入れてください！");
+                            }
+                            while (ans.length != 3){
+                                ans = window.prompt("相手の数字だと思うものを”3桁で”入れてください！");
+                            }
+                            mes(time+"ターン裏")
+                            mes("あなたのコール:"+ans);
+                            var anrr = key(ans);
+                            jed(anrr,carr);
+                            mes("あなた:"+bite+"bite,"+eat+"eat");
+                            mes("============================================");
+                            if (eat == 3){
+                                mes("正解！");
+                                mes("============================================")
+                                let element = document.getElementById('box');
+                                element.insertAdjacentHTML('afterend', '<input type="button" value="このページを再読込してリセットする" onclick="window.location.reload();" />');
+
+                            }else{
+                                mkc(0);
+                                while (log.indexOf(test) != -1){
+                                    mkc(0)
+                                    console.log("def:"+test+"==")
+                                }
+                                play(test);
+                            }
+                        }
+                        //cpu ara
+                        var end = 0;
+                        sf = rts2;
+                        time++
+                        mes(time+"ターン表")
+                        mes("対戦相手のコール:"+rts2);
+                        log.push(rts2);
+                        var serc = key(rts2);
+                        jed(serc,parr);
+                        mes("対戦相手:"+bite+"bite,"+eat+"eat");
+                        mes("============================================");
+                        //考える部分
+                            if (bite == 0 && eat == 0){
+                                var index2 = num2.indexOf(serc[0]);
+                                num2.splice(index2, 1);
+                                console.log(index2 + 1);
+                                console.log(num2);
+                                index2 = num2.indexOf(serc[1]);
+                                num2.splice(index2, 1);
+                                console.log(index2 + 1);
+                                console.log(num2);
+                                index2 = num2.indexOf(serc[2]);
+                                num2.splice(index2, 1);
+                                console.log(index2 + 1);
+                                console.log(num2);
+                                af2 = 0;
+                            }
+                            /*if (bite == 0 || bite==1 || bite == 2){
+                                if (eat == 0 || eat == 1 || eat == 2){
+                                    if ((bite != 0 && eat != 0)){
+
+                                    for(let i = 0; i < serc.length; i++){
+                                        num2.push(serc[i]);
+                                    }
+                                    console.log(num2);
+                                    }
+                                }
+                            }*/
+                            if (eat == 1 && bite == 0){
+                                for(let i = 0; i < serc.length; i++){
+                                    num2.push(serc[i]);
+                                }
+                            }
+                            if (bite+eat == 2){
+                                for(let i = 0; i < serc.length; i++){
+                                    num2.push(serc[i]);
+                                }
+                            }
+                            if (bite+eat == 3){
+                                num2 = serc;
+                            }
+                            if (eat == 3){
+                                document.removeEventListener('keyup',event)
+                                mes("残念！あなたの負け");
+                                mes("相手の数字は"+se+"でした！")
+                                let element = document.getElementById('box');
+                                element.insertAdjacentHTML('afterend', '<input type="button" value="このページを再読込してリセットする" onclick="window.location.reload();" />');
+                            }
+                        console.log(num2);
+                        mes("何かのキーを押して続行");
+                        document.addEventListener('keyup',event);
+                    }
+                    play(rts);
+            }
+
+
+            /*
+            num()変数の初期化
+            rdn()配列の長さまでの乱数
+            rdn2()指定空いた範囲までの乱数
+            mes()メッセージを表示
+            key()テキストを一文字ずつ配列に投入
+            make()指定した長さの重ならない数字列を作成。
+            exp()解説
+            jed()判定
+            make2()指定した数字の長さの範囲内のmake()
+            ans() 質問
+            mkc() CPUの質問作成
+
+            num 配列
+            rs make()の結果
+            str テキスト表示の内容 mes()
+            text rdm()の結果を格納する
+            se cpuの答え
+            carr seの配列版
+            ptext 自分の答え
+            parr ptextの配列
+            rts cpuの選択(ランダム)
+            serc rtsの配列版
+            text1 ┐
+            text2 │
+            text3 ├ 一時的なメモ
+            text4 │
+            text5 ┘
+            bite その名の通りびbite数
+            eat その名の通りeat数
+            ans プレイヤーの質問
+            anrr ansの配列版
+            strg 比較対象１
+            str 比較対象２
+            num2 出せうる数
+            num3 出せうる数
+            rs2 make2()の結果
+            str2 rs2の配列版
+            test mkc() の結果
+
+            */
+
+            /*
+            参考文献
+            https://jshint.com/
+            https://qiita.com/PianoScoreJP/items/e43d70ec188c6fed73ed
+            https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Conditional_operator
+            https://www.programiz.com/javascript/online-compiler/
+            https://www.javadrive.jp/javascript/for/index2.html
+            https://www.sejuku.net/blog/88958
+            https://www.sejuku.net/blog/26442
+            https://teratail.com/questions/168181
+            https://bobbyhadz.com/blog/javascript-typeerror-charat-is-not-a-function
+            https://qiita.com/nori0__/items/22dc1e9cd20e49006b48
+            https://magazine.techacademy.jp/magazine/26836
+            https://pisuke-code.com/js-remove-element-by-value/
+
+            */
+            //現在のバグ4回目のCPU選択からすべてUfになる
+        </script>
+        <style>
+        body {
+            margin: 5%;
+            background-color: black;
+        }
+        h1 {
+            color: lime;
+        }
+        p2 {
+            color: white;
+        }
+        p3 {
+            color:green;
+        }
+        p4{
+            color:yellow;
+        }
+        p5{
+            color:red;
+        }
+        .memo{
+            position: fixed;
+            bottom: 975px;
+            right: 0px;
+        }
+        .im{
+            position:fixed;
+            z-index: -1;
+            background-size: auto;
+            background-repeat: no-repeat;
+            bottom: 40%;
+            right:40%;
+        }
+        </style>
+    </body>
+</html>
