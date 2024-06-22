@@ -120,7 +120,7 @@
                 open("https://github.com/gachao/Numer0n/wiki")
             }
             function link2(){
-                open("https://github.com/gachao/Numer0n/blob/main/Numer0n%231.3.2.html")
+                open("https://github.com/gachao/Numer0n/blob/main/Numer0n%231.3.4.html")
             }
             function make3(t){
                 rs2="";
@@ -737,6 +737,12 @@
                                         if (bite+eat==1 && check){
                                             //bite+eatが1の場合、もし３つ同じ数字が存在したら、消す
                                             if(searches(num2,serc)==3){
+                                                num2.shift();
+                                            }
+                                        }
+                                        if (bite+eat==2 && check){
+                                            //bite+eatが2の場合、もし4つ同じ数字が存在したら、消す
+                                            if(searches(num2,serc)==4){
                                                 num2.shift();
                                             }
                                         }
