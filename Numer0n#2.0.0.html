@@ -1,0 +1,894 @@
+<!-->このプログラムはヌメロン全体のソースコード(設計図)です。
+//の後に注訳を書いてるので読みやすいと思います。
+</!-->
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+    <head>
+        <meta charset='UTF-8'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="vieeport" content="eidth=device-eidth, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
+        <title>Numer0n</title>
+    </head>
+    <body>
+
+        <h1>ヌメロンVer.2(オフライン:コンピュータvs人)</h1>
+        <h2>https://numer0n.pythonanywhere.com/<h2>
+        <p9>最終更新:2024/06/22/14:42</p9>
+        <h2 id="load">loading...</h2>
+        <div id='bons'>
+        <!-- <button onclick=link()>ルール解説</button> -->
+        <button type= button onclick=start()>スタート</button><button type= button onclick="window.location.href = 'https://numer0n.pythonanywhere.com/pvp';">人vs人</button>
+        </div>
+        <img src="/static/70149381952b3c0603bba30011.jpg" class="im">
+
+        <div id="box"><p></p></div>
+        <div class="rbox"id ="rbox"></div>
+        <style>
+        body {
+            margin: 5%;
+            background-color: black;
+        }
+        h1 {
+            color: lime;
+        }
+        h2 {
+            color: yellow;
+        }
+        p{
+            color:white;
+        }
+        p2 {
+            color: white;
+            font-size: 25px;
+        }
+        p3 {
+            color:lime;
+            font-size: 25px;
+        }
+        p4{
+            color:yellow;
+            font-size: 25px;
+        }
+        p5{
+            color:red;
+            font-size: 25px;
+        }
+        p6{
+            color:yellow;
+            font-size: 25px;
+            text-align: right;
+        }
+        p7{
+            color: white;
+            font-size: 20px;
+        }
+        p8{
+            color:red;
+        }
+        p9{
+            color: white;
+            font-size: 15px;
+        }
+        .memo{
+            position: fixed;
+            display: block;
+            bottom: 975px;
+            right: 0px;
+        }
+        .im{
+            position:fixed;
+            z-index: -1;
+            background-size: auto;
+            background-repeat: no-repeat;
+            bottom: 40%;
+            right:40%;
+        }
+        .rbox{
+            position:fixed;
+            display: block;
+            text-align: right;
+            top:30px;
+            right:15px;
+            color:white;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+        </style>
+    </body>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script>
+            //グローバル変数の宣言
+            var parr;
+            var rts;
+            var num = ["0","1","2","3","4","5","6","7","8","9"];
+            var num2 = ["0","1","2","3","4","5","6","7","8","9"];
+            var rs ="";
+            var bite = 0;
+            var eat = 0;
+            var af;
+            var ths = [];
+            var tex2="";
+            var tex ="";
+            var log=[];
+            var time=0;
+            var ptext2;
+            var lev;
+            var tex2="";
+            var rs2="";
+            fetch("https://script.google.com/macros/s/AKfycbx90DzziAA6Y6xE_otk2x3h8w1w9IrnLDLbwPg_bqhJUlhGilrCXoAg5jdZAuo2hRIH/exec", { method: "post",headers: {"Content-Type": "application/x-www-form-urlencoded","Accept": "plain/text",}})
+            .then((response) => {response.text().then((text) => {document.getElementById("load").innerHTML="あなたは"+text+"人目のプレイヤーです。";});})
+
+            var sf
+            function searches(arr,num){
+                var count = {};
+                for (var i = 0; i < arr.length; i++) {
+                    var elm = arr[i];
+                    count[elm] = (count[elm] || 0) + 1;
+                }
+                return count[num]
+            }
+            function link(){
+                open("https://github.com/gachao/Numer0n/wiki")
+            }
+            function link2(){
+                open("https://github.com/gachao/Numer0n/blob/main/Numer0n%231.3.4.html")
+            }
+            function make3(t){
+                rs2="";
+                var num3 = Array.from(num2);
+                tex2="";
+                for (let time =0;time<t;time++){
+                    tex = rdn2(num2.length);
+                    console.log(tex);
+                    let n = 0
+                    while (num3[tex] == undefined || tex2.indexOf(num3[tex]) != -1){
+                        tex = rdn2(num2.length);
+                        n++
+                        if(n > 50){
+                            mes("エラーが発生しました。エラーコード:num2st");
+                            break;
+                        }
+                    }
+                    tex2 = tex2+num3[tex]
+                    //delete num3[tex]; //←これが不正
+                    num3.splice(tex, 1);//←これが正解
+                }
+            }
+            function make2(t){
+                make3(t);
+                if(lev>=3){
+                    for (var i=0;i<20;i++) {
+                    jed(key(tex2),parr);
+                    bite2=bite
+                    eat2=eat
+                    make3(t);
+                    jed(key(tex2),parr);
+                    if(bite2+eat2>=bite+eat || (bite2==0 && eat2==0)){
+                        if(!(bite==0 && eat==0) && !(eat==3)){
+                            bite=bite2;
+                            eat=eat2;
+                        }
+                    }
+                    }
+                }
+                if(lev>=4){
+                    for (var i=0;i<20;i++) {
+                    jed(key(tex2),parr);
+                    bite2=bite
+                    eat2=eat
+                    make3(t);
+                    jed(key(tex2),parr);
+                    if(bite2+eat2>=bite+eat || (bite2==0 && eat2==0)){
+                        if(!(bite==0 && eat==0) && !(eat==3)){
+                            bite=bite2;
+                            eat=eat2;
+                        }
+                    }
+                    }
+                }
+
+                return tex2;
+            }
+            function mkc(af2){
+                if (af2 == 0){
+                    test = make2(3);
+                    while (test == undefined){
+                        test = make2(3);
+                        console.log("unf");
+                    }console.log("A:"+eat+bite)
+                    var eat2
+                    var bite2
+
+                    if(lev==3){
+                        test = make2(3);
+                        while (test == undefined){
+                            test = make2(3);
+                            console.log("unf");
+                        }
+                        if(eat2+bite2 >= eat+bite){
+                            eat=eat2
+                            bite=bite2
+                        }console.log("B:"+eat+bite)
+                    }
+                    if(lev==4){
+                        test = make2(3);
+                        while (test == undefined){
+                            test = make2(3);
+                            console.log("unf");
+                        }
+                        if(eat2+bite2 >= eat+bite){
+                            eat=eat2
+                            bite=bite2
+                        }console.log("B:"+eat+bite)
+                    }
+                    if(lev==4){
+                        test = make2(3);
+                        while (test == undefined){
+                            test = make2(3);
+                            console.log("unf");
+                        }
+                        if(eat2+bite2 >= eat+bite){
+                            eat=eat2
+                            bite=bite2
+                        }
+                        console.log("B:"+eat+bite)
+                    }
+                tarr = key(test);
+                }
+                if (test == "undefinedundefinedundefined"){
+                    mes("error:"+test+"==undef*3.")
+                    mes("error:"+test+"fraudulent-ans. stop this process")
+                }
+
+            }
+            function remov(){
+                if(time%2==0&&num2.length>10){
+                console.log("//s-rem")
+                if(num2.indexOf("0") != num2.lastIndexOf("0")){
+                    let b = num2.indexOf("0");
+                    num2.splice(b,1)
+                }
+                if(num2.indexOf("1") != num2.lastIndexOf("1")){
+                b = num2.indexOf("1");
+                console.log(b);
+                console.log(b);
+                num2.splice(b,1)
+                }
+                if(num2.indexOf("2") != num2.lastIndexOf("2")){
+                b = num2.indexOf("2");
+                console.log(b);
+                num2.splice(b,1)
+                }
+                if(num2.indexOf("3") != num2.lastIndexOf("3")){
+                b = num2.indexOf("3");
+                console.log(b);
+                num2.splice(b,1)
+                }
+                if(num2.indexOf("4") != num2.lastIndexOf("4")){
+                b = num2.indexOf("4");
+                console.log(b);
+                num2.splice(b,1)
+                }
+                if(num2.indexOf("5") != num2.lastIndexOf("5")){
+                b = num2.indexOf("5");
+                console.log(b);
+                num2.splice(b,1)
+                }
+                if(num2.indexOf("6") != num2.lastIndexOf("6")){
+                b = num2.indexOf("6");
+                console.log(b);
+                num2.splice(b,1)
+                }
+                if(num2.indexOf("7") != num2.lastIndexOf("7")){
+                b = num2.indexOf("7");
+                console.log(b);
+                num2.splice(b,1)
+                }
+                if(num2.indexOf("8") != num2.lastIndexOf("8")){
+                b = num2.indexOf("8");
+                console.log(b);
+                num2.splice(b,1)
+                }
+                if(num2.indexOf("9") != num2.lastIndexOf("9")){
+                b = num2.indexOf("9");
+                console.log(b);
+                num2.splice(b,1)
+                }
+                console.log("f-rem//");
+                }
+                console.log(num2);
+            }
+            function ans(){
+                lev = window.prompt("レベルを入れてください。\nEasy(簡単)→1\nNormal(普通)→2\nHard(難しい)→3\nLunatic(意味が分からなければしない)→4\nを入れてください。")
+                var bik="!"
+                while (!(lev==1 || lev==2 || lev==3 || lev==4)){
+                    lev = window.prompt("レベルを入れてください。\nEasy(簡単)→1\nNormal(普通)→2\nHard(難しい)→3\nLunatic(意味が分からなければしない)→4\nを入れてください。"+bik)
+                    bik=bik+"!"
+                }
+                if (lev==1){lev=2}
+                else if (lev==2){lev=1}
+                else if(lev==3){}
+                var ptext = window.prompt("自分の答えの数字を入れてください。");
+                ptext2 = ptext
+                if(ptext == "ksf"){
+                    console.log("ksfを検知しました。");
+                    ptext=window.prompt("自分の答えの数字を入れてください。");
+                }
+                if(ptext == "pno"){
+                    console.log("pnoを検知しました。");
+                    ptext=window.prompt("自分の答えの数字を入れてください。");
+                }
+                if(ptext == "lp3"){
+                    console.log("lp3を検知しました。");
+                    ptext=window.prompt("自分の答えの数字を入れてください。");
+                }
+                var j2 =""
+                var number = key(ptext);
+                var result = number.filter((val, i, arr) => {
+                    return arr.indexOf(val) != i;
+                });
+                while (ptext.length != 3 || result.length!=0){
+                    ptext = window.prompt("自分の答えの数字”３けたで被らない数字”を入れてください");
+                    number = key(ptext);
+                    result = number.filter((val, i, arr) => {
+                        return arr.indexOf(val) != i;
+                    });
+                }
+                mes("あなたの答え:"+ptext);
+                mes2("あなたの答え:"+ptext);
+                mes("対戦相手の答え:???")
+                mes("======================");
+                parr = key(ptext);//自分の数字の配列版
+                return parr;
+            }
+            /*未使用↓
+            function next(){
+                mkc(0);//test:rt
+                mes("対戦相手:"+test);
+                jed(tarr,parr);
+                mes("対戦相手:"+bite+"bite,"+eat+"eat");
+                mes("============================================")
+                mes("何かのキーを押して続行");
+
+            }
+            */
+            function jed(strg,str) {
+                eat =0;
+                bite =0;
+                var text1 = strg[0];//1
+                var text2 = strg[1];//2
+                var text3 = strg[2];//3
+
+                if (str.indexOf(text1) !== -1){//1=1
+                    if (str[0] == text1){
+                        eat++;
+                        console.log("1:eat");
+                    }else{
+                        bite++;
+                        console.log("1:bite");
+                    }
+                }
+                if (str.indexOf(text2) !== -1){
+                    if (str[1] == text2){
+                        eat++;
+                        console.log("2:eat");
+                    }else{
+                        bite++;
+                        console.log("2:bite");
+                    }
+                }
+                if (str.indexOf(text3) !==-1){
+                    if (str[2] == text3){
+                        eat++;
+                        console.log("3:eat");
+                    }else{
+                        bite++;
+                        console.log("3:bite");
+                    }
+                }
+            }
+            if (eat == 3){
+                bite = 0;
+            }
+            /*
+            function job(rff){//rff CPU選択 >>未使用<<
+                log.push(rff);
+                mes("対戦相手のコール:"+rff+"");
+                var serc = key(rff);
+                jed(parr,serc);
+                mes("対戦相手:"+bite+"bite,"+eat+"eat");
+                mes("============================================")
+                mes("何かのキーを押して続行");
+                document.addEventListener('keyup', (event) => {
+                var ans = window.prompt("");
+                mes("あなたのコール:"+ans);
+                var anrr = key(ans);
+                jed(carr,anrr);
+                mes("あなた:"+bite+"bite,"+eat+"eat");
+                mes("============================================")
+                document.removeEventListener('keyup', (event));
+                });
+            }
+            */
+            function exp() {
+                alert("このゲームはヌメロンというゲームです。");
+                alert("ヌメロンは相手の数字を先にあてるゲームです。");
+                alert("このサイトでは、CPUと対戦することができます。");
+                alert("最初に、スタートボタンを押して、自分の数字を３桁で入力してください。");
+                alert("CPUの数字はランダムで決定します。")
+                alert("まず、先攻で相手が３桁の数字を出します。");
+                alert("その後にObite,Oeatと出てきます。");
+                alert("biteとは、数字はあっているが、桁が間違っている数、eatとは、数字も桁もあっているということです。");
+                alert("そのあと、自分が相手の数字を当てます。");
+                alert("同じようにbiteとeatが出てきます。");
+                alert("それを繰り返し、先に分かったほうが勝ちです。");
+                alert("それでは、スタートボタンを押してゲームを開始しましょう。");
+            }
+            function rdn() {
+                return Math.floor(Math.random() * num.length);
+            }
+            function rdn2(t){
+                return Math.floor(Math.random()* t);//0~t
+            }
+            function mes(text){
+                scrollBy(0, 500);
+                let textbox_element = document.getElementById("box");
+                var ne = document.createElement('p2');
+                //文字色変更
+                if (text.indexOf("対戦相手") != -1){
+                    var ne = document.createElement('p3');
+                    console.log("3");
+                }
+                if(text.indexOf("あなた") != -1){
+                    var ne = document.createElement('p4');
+                    console.log("4");
+                }
+                if(text.indexOf("！") != -1){
+                    var ne = document.createElement('p5');
+                    console.log("5");
+                }
+                if(text.indexOf("あなたの答え") != -1){
+                    var ne = document.createElement('p6');
+                    console.log("6");
+                }
+                ne.textContent = text;
+                textbox_element.appendChild(ne);
+                var ne = document.createElement('br');
+                textbox_element.appendChild(ne);
+                var elm = document.documentElement;
+                var bottom = elm.scrollHeight - elm.clientHeight;
+                //window.scroll(0, bottom);
+                scrollBy(0, 500);
+            }
+            function mes2(text){
+                let textbox_element = document.getElementById("rbox");
+                var ne = document.createElement('p7');
+                ne.textContent = text;
+                textbox_element.appendChild(ne);
+                var ne = document.createElement('br');
+                textbox_element.appendChild(ne);
+            }
+            function key(str2){
+                let key1 = str2.toString().charAt(0);
+                let key2 = str2.toString().charAt(1);
+                let key3 = str2.toString().charAt(2);
+                return [key1,key2,key3];
+            }
+            function make(t){//result is "rs"
+
+            var num =["0","1","2","3","4","5","6","7","8","9"];//出せうる数
+            var rs ="";
+            for (let time = 0;time<t;time++){
+                var text = rdn();
+                rs = rs+num[text];
+                delete num[text];
+            }
+            if(rs.indexOf(undefined) == -1){
+                return rs;
+            }else{
+                make(t);
+            }
+            }
+            function start(more){
+                parr;
+                rts;
+                num = ["0","1","2","3","4","5","6","7","8","9"];
+                num2 = ["0","1","2","3","4","5","6","7","8","9"];
+                rs ="";
+                bite = 0;
+                eat = 0;
+                af;
+                ths = [];
+                tex2="";
+                tex ="";
+                log=[];
+                time=0;
+                ptext2;
+                lev;
+                tex2="";
+                rs2="";
+                num =["0","1","2","3","4","5","6","7","8","9"];
+                if(more){
+                    var doc = document.getElementById("fb");
+                    doc.remove();
+                    var doc = document.getElementById("fb1");
+                    doc.remove();
+                    var doc = document.getElementById("fb2");
+                    doc.remove();
+                }
+                if(!more){
+                let element = document.getElementById('bons');
+                element.remove();
+                }
+                var se = make(3);
+                while (se == undefined){
+                    se = make(3);
+                    console.log("unf");
+                }
+                if(!more){
+                mes("対戦相手（コンピューター）とあなたがそれぞれ決めた3桁の数字を言い当てるゲームです。")
+                mes("まず、難易度とあなたが決めた3桁の数字（同じ数字は使わない）を入力してください。");
+                }else{
+                    mes("難易度とあなたが決めた3桁の数字（同じ数字は使わない）を入力してください。");
+                }
+                mes("======================");
+                console.log("CPU:"+se);//cpu-number
+                var carr = key(se);
+                //alert(carr);
+                let element2 = document.getElementById('box');
+                element2.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+                let button2 = document.getElementById('rbb');
+                button2.addEventListener('click',ans2);
+                function ans2(){
+                    document.getElementById('rbb').remove();
+                    document.removeEventListener('click',ans)
+                    var parr = ans();
+                    var ptext = key(parr);
+                    var rts = make(3);
+                    if (rts == undefined){
+                        rts = make(3);
+                        console.log("rts");
+                    }
+                    if (rts == undefined){
+                        rts = make(3);
+                        console.log("rts");
+                    }
+                    if (rts == undefined){
+                        rts = make(3);
+                        console.log("rts");
+                    }
+                    if (rts == undefined){
+                        rts = make(3);
+                        console.log("rts");
+                    }
+                    play(rts,more);
+                }
+                    function play(rts2,more){
+                        //let element = document.getElementById('box');
+                        //element.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+                        if(!more){
+                        mes("先攻はコンピュータで、あなたが後攻です。");
+                        mes("まず、相手があなたの数字を予想して言います。このことをコールといいます。");
+                        mes("その時に、相手の予想した数字と”~bite,~eat”というものが表示されます。")
+                        mes("桁は違うが数字がある場合は「bite」（バイト）といいます。");
+                        mes("数字と桁が合っていた場合は「eat」（イート）といいます。");
+                        }
+                        let element2 = document.getElementById('box');
+                        element2.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+                        let button2 = document.getElementById('rbb');
+                        button2.addEventListener('click', mess);
+                        function mess() {
+                            document.getElementById('rbb').remove();
+                            document.removeEventListener('click', mess);
+                            mes("======================");
+                            mes("例:123が答えで、412とコールした時");
+                            mes("　4→なし 1→1桁目にあるのでbite　2→2桁目にあるのでbite");
+                            mes("　結果は 2bite,0eatになります。");
+                            mes("そのあとに、自分が相手の数字を予想してコールします。");
+                            mes("これらで得られたbiteとeatを利用して相手の数字を予測します。")
+                            mes("それを繰り返して、先に相手の数字を当てたほうが勝ちです。")
+                            let element2 = document.getElementById('box');
+                            element2.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+                            let button2 = document.getElementById('rbb');
+                            button2.addEventListener('click', mess);
+                            cpu()
+                        }
+
+
+                        function event(){
+                            document.getElementById('rbb').remove();
+                            document.removeEventListener('click',event);
+                            console.log("=next=");
+                            mes("======================");
+                            if(ptext2 != "ksf"&&ptext2 != "lp3"){
+                                var ans = window.prompt("相手の数字だと思うものを入れてください。");
+                                while (ans==null||ans.length != 3){
+                                    console.log(ptext2);
+                                    if(ptext2 != "ksf"&&ptext2 != "lp3"){
+                                    ans = window.prompt("相手の数字だと思うものを”3桁で”入れてください！");
+                                    }else{
+                                        break;
+                                    }
+                                }
+                            }else{
+                                ans ="123"
+                            }
+                            mes(time+"ターン裏")
+                            mes("あなたのコール:"+ans);
+                            var anrr = key(ans);
+                            jed(anrr,carr);
+                            if (ptext2 == "pno"){
+                                bite=window.prompt("bite");
+                                eat=window.prompt("eat");
+                            }
+                            mes("あなた:"+bite+"bite,"+eat+"eat");
+                            mes2(ans+"→"+bite+"bite,"+eat+"eat");
+                            mes("======================");
+                            if (eat == 3){
+                                mes("正解！おめでとうございます！");
+                                mes("======================");
+                                if(ptext2 =="lp3"){
+                                    //play(test);
+                                    let element = document.getElementById('box');
+                                    element.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+                                    let button = document.getElementById('rbb');
+                                    button.addEventListener('click',cpu);
+                                }
+                                element = document.getElementById('box');
+                                element.insertAdjacentHTML('afterend', '<input type="button" value="このページを再読込してリセットする" onclick="window.location.reload();" />');
+                                element = document.getElementById('box');
+                                element.insertAdjacentHTML('afterend', '<input type="button" value="ソースコードを見たい？" onclick="link2()" />');
+                                //element = document.getElementById('box');
+                                //element.insertAdjacentHTML('afterend', '<button>もう一度プレイする</button>');
+
+                            }else{
+                                //play(test);
+                                let element = document.getElementById('box');
+                                element.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+                                let button = document.getElementById('rbb');
+                                button.addEventListener('click',cpu);
+                            }
+                        }
+                        //cpu ara
+                        function cpu(){
+                        let rts2 = make2(3);
+                        while (log.indexOf(rts2) != -1){
+                            console.log("while-log");
+                            mkc(0);
+                            rts2 = test;
+                            console.log("def:"+rts2+"==");
+                        }
+                        document.getElementById('rbb').remove();
+                        mes("======================");
+                        document.removeEventListener('click',cpu);
+                        var end = 0;
+                        sf = rts2;
+                        time++;
+                        mes(time+"ターン表");
+                        mes("対戦相手のコール:"+rts2);
+                        log.push(rts2);
+                        var serc = key(rts2);
+                        jed(serc,parr);
+                        if (ptext2 == "pno"){
+                            bite=window.prompt("bite");
+                            eat=window.prompt("eat");
+                        }
+                        mes("対戦相手:"+bite+"bite,"+eat+"eat");
+                        mes("======================");
+                        remov();
+                        //考える部分
+                            if (bite == 0 && eat == 0){
+                                /*var index2 = num2.indexOf(serc[0]);
+                                num2.splice(index2, 1);
+                                console.log(index2 + 1);
+                                console.log(num2);
+                                index2 = num2.indexOf(serc[1]);
+                                num2.splice(index2, 1);
+                                console.log(index2 + 1);
+                                console.log(num2);
+                                index2 = num2.indexOf(serc[2]);
+                                num2.splice(index2, 1);
+                                console.log(index2 + 1);
+                                console.log(num2);
+                                af2 = 0;
+                                */
+                                while (num2.indexOf(serc[0]) != -1){
+                                    num2.splice(num2.indexOf(serc[0]),1);
+                                    console.log(num2);
+                                }
+                                while (num2.indexOf(serc[1]) != -1){
+                                    num2.splice(num2.indexOf(serc[1]),1);
+                                    console.log(num2);
+                                }
+                                while (num2.indexOf(serc[2]) != -1){
+                                    num2.splice(num2.indexOf(serc[2]),1);
+                                    console.log(num2);
+                                }
+                            }
+                            /*if (bite == 0 || bite==1 || bite == 2){
+                                if (eat == 0 || eat == 1 || eat == 2){
+                                    if ((bite != 0 && eat != 0)){
+
+                                    for(let i = 0; i < serc.length; i++){
+                                        num2.push(serc[i]);
+                                    }
+                                    console.log(num2);
+                                    }
+                                }
+                            }*/
+                            if (eat == 1 && bite == 0){
+                                if (lev == 2){
+                                    if(num2.length>5){
+                                        for(let i = 0; i < serc.length; i++){
+                                            if(num2.indexOf(serc[i]) != -1){
+                                                num2.push(serc[i]);
+                                            }
+                                        }
+                                    }
+                                }else if(lev ==3){
+                                    var check=false
+                                    for(let i = 0; i < serc.length; i++){
+                                        if(searches(num2,serc)>=2){
+                                            num2.push(serc[i]);
+                                            num2.push(serc[i]);
+                                            check=true
+                                        }else{
+                                            if(searches(num2,serc)>=1){
+                                                num2.push(serc[i])
+                                                check=true
+                                            }
+                                        }
+                                        if (searches(num2,serc)>=3 && check){
+                                            num2.shift();
+                                        }
+                                    }
+                                }else if(lev ==4){
+                                    var check=false
+                                    for(let i = 0; i < serc.length; i++){
+                                        if(searches(num2,serc)>=2){
+                                            num2.push(serc[i]);
+                                            num2.push(serc[i]);
+                                            check=true
+                                        }
+                                        if (searches(num2,serc)>=3 && check){
+                                            num2.shift();
+                                        }
+                                        if (bite+eat==1 && check){
+                                            //bite+eatが1の場合、もし３つ同じ数字が存在したら、消す
+                                            if(searches(num2,serc)==3){
+                                                num2.shift();
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+                                    for(let i = 0; i < serc.length; i++){
+                                        if(num2.indexOf(serc[i]) != -1){
+                                            num2.push(serc[i]);
+                                        }
+                                    }
+                                }
+                            }
+                            if (bite+eat == 2){
+                                if (lev == 2){
+                                    if(num2.length>5){
+                                        for(let i = 0; i < serc.length; i++){
+                                            if(num2.indexOf(serc[i]) != -1){
+                                                num2.push(serc[i]);
+                                                //alert("1")
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    for(let i = 0; i<serc.length; i++){
+                                        if(num2.indexOf(serc[1]) != -1){
+                                            num2.push(serc[i]);
+                                        }
+                                    }
+                                }
+                            }
+                            if (bite+eat == 3){
+                                console.log("3!!");
+                                num2 = serc;
+                                }
+                            if (eat == 3){
+                                document.removeEventListener('click',cpu);
+                                mes("残念！あなたの負け");
+                                mes("相手の数字は"+se+"でした！");
+                                document.removeEventListener('click',event);
+                                let element = document.getElementById('box');
+                                element.insertAdjacentHTML('afterend', '<input type="button" id="fb"value="もう一度対戦する!" onclick="start(true)" />');
+                                element.insertAdjacentHTML('afterend', '<input type="button" id="fb1"value="このページを再読込してリセットする" onclick="if(window.confirm(\'リロードすると履歴が消去されます。\')){window.location.reload();}" />');
+                                element.insertAdjacentHTML('afterend', '<input type="button" id="fb2"value="ソースコードを見たい？" onclick="link2()" />');
+                                document.removeEventListener('click',event);
+                            }
+                        console.log(num2);
+
+                        if (eat != 3){
+                            let element = document.getElementById('box');
+                            element.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+                        }
+                        let button = document.getElementById('rbb');
+                        button.addEventListener('click',event);
+                    }
+                }
+                    //play(rts);
+            }
+
+
+            /*
+            num()変数の初期化
+            rdn()配列の長さまでの乱数
+            rdn2()指定空いた範囲までの乱数
+            mes()メッセージを表示
+            key()テキストを一文字ずつ配列に投入
+            make()指定した長さの重ならない数字列を作成。
+            exp()解説
+            jed()判定
+            make2()指定した数字の長さの範囲内のmake()
+            ans() 質問
+            mkc() CPUの質問作成
+            searches(arr,num) arrで配列を指定、numで指定した数字が配列にいくつ含まれているか
+
+            num 配列
+            rs make()の結果
+            str テキスト表示の内容 mes()
+            text rdm()の結果を格納する
+            se cpuの答え
+            carr seの配列版
+            ptext 自分の答え
+            parr ptextの配列
+            rts cpuの選択(ランダム)
+            serc rtsの配列版
+            text1 ┐
+            text2 │
+            text3 ├ 一時的なメモ
+            text4 │
+            text5 ┘
+            bite その名の通りびbite数
+            eat その名の通りeat数
+            ans プレイヤーの質問
+            anrr ansの配列版
+            strg 比較対象１
+            str 比較対象２
+            num2 出せうる数
+            num3 出せうる数
+            rs2 make2()の結果
+            str2 rs2の配列版
+            test mkc() の結果
+
+            */
+
+            /*
+            参考文献
+            https://jshint.com/
+            https://qiita.com/PianoScoreJP/items/e43d70ec188c6fed73ed
+            https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Conditional_operator
+            https://www.programiz.com/javascript/online-compiler/
+            https://www.javadrive.jp/javascript/for/index2.html
+            https://www.sejuku.net/blog/88958
+            https://www.sejuku.net/blog/26442
+            https://teratail.com/questions/168181
+            https://bobbyhadz.com/blog/javascript-typeerror-charat-is-not-a-function
+            https://qiita.com/nori0__/items/22dc1e9cd20e49006b48
+            https://magazine.techacademy.jp/magazine/26836
+            https://pisuke-code.com/js-remove-element-by-value/
+
+
+
+
+
+
+function a(){
+var element = document.getElementById('box');
+element.insertAdjacentHTML('afterend', '<input type="button" value="ソースコードを見たい？" onclick="link2()" />');
+function link2(){
+	alert("1234567890");
+	}
+}
+a()
+            */
+
+        </script>
+</html>

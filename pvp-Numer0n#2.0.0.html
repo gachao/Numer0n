@@ -1,0 +1,263 @@
+<!-->このプログラムはヌメロン全体のソースコード(設計図)です。
+//の後に注訳を書いてるので読みやすいと思います。
+</!-->
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="vieeport" content="eidth=device-eidth, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
+    <title>Numer0n</title>
+</head>
+<body>
+    <h1>ヌメロンVer.2(オフライン:人vs人バージョン)</h1>
+    <h2>https://numer0n.pythonanywhere.com/<h2>
+    <p9>最終更新:2024/08/22/14:42<s>オンラインバージョン作りたくて作れなかったのは秘密</s></p9>
+    <h2 id="load">loading...</h2>
+    <div id='bons'>
+    <!-- <button onclick=link()>ルール解説</button> -->
+    <button id="bun"type= button onclick=start()>スタート</button><button type= button onclick="window.location.href = 'https://numer0n.pythonanywhere.com/';">コンピュータvs人</button>
+    </div>
+    <img src="/static/70149381952b3c0603bba30011.jpg" class="im">
+    <div id="box"><p></p></div>
+    <div class="rbox"id ="rbox"></div>
+    <style>
+    body {
+        margin: 5%;
+        background-color: black;
+    }
+    h1 {
+        color: lime;
+    }
+    h2 {
+        color: yellow;
+    }
+    p{
+        color:white;
+    }
+    p2 {
+        color: white;
+        font-size: 25px;
+    }
+    p3 {
+        color:lime;
+        font-size: 25px;
+    }
+    p4{
+        color:yellow;
+        font-size: 25px;
+    }
+    p5{
+        color:red;
+        font-size: 25px;
+    }
+    p6{
+        color:yellow;
+        font-size: 25px;
+        text-align: right;
+    }
+    p7{
+        color: white;
+        font-size: 20px;
+    }
+    p8{
+        color:red;
+    }
+    p9{
+        color: white;
+        font-size: 15px;
+    }
+    .memo{
+        position: fixed;
+        display: block;
+        bottom: 975px;
+        right: 0px;
+    }
+    .im{
+        position:fixed;
+        z-index: -1;
+        background-size: auto;
+        background-repeat: no-repeat;
+        bottom: 40%;
+        right:40%;
+    }
+    .rbox{
+        position:fixed;
+        display: block;
+        text-align: right;
+        top:30px;
+        right:15px;
+        color:white;
+    }
+    html{
+        scroll-behavior: smooth;
+    }
+    </style>
+</body>
+<script>
+var p1;
+var p2;
+var p1a;
+var p2a;
+var res;
+var number;
+var ptext;
+var element2 = document.getElementById('box');
+function mes2(text){
+    let textbox_element = document.getElementById("rbox");
+    var ne = document.createElement('p7');
+    ne.textContent = text;
+    textbox_element.appendChild(ne);
+    var ne = document.createElement('br');
+    textbox_element.appendChild(ne);
+}
+function key(str2){
+    let key1 = str2.toString().charAt(0);
+    let key2 = str2.toString().charAt(1);
+    let key3 = str2.toString().charAt(2);
+    return [key1,key2,key3];
+}
+function ans(p){
+    var ptext = window.prompt(p+"の答えの数字を入れてください。");
+    ptext2 = ptext
+    var j2 =""
+    var number = key(ptext);
+    var result = number.filter((val, i, arr) => {
+        return arr.indexOf(val) != i;
+    });
+    while (ptext.length != 3 || result.length!=0){
+        ptext = window.prompt(p+"の答えの数字”３けたで被らない数字”を入れてください");
+        number = key(ptext);
+        result = number.filter((val, i, arr) => {
+            return arr.indexOf(val) != i;
+        });
+    }
+    parr = key(ptext);//自分の数字の配列版
+    return parr;
+}
+function post(url){
+    fetch(url, { method: "post",headers: {"Content-Type": "application/x-www-form-urlencoded","Accept": "plain/text",}})
+    .then((response) => {response.text().then((text) => {console.log(text);});})
+}
+function mes(text){
+    scrollBy(0, 500);
+    let textbox_element = document.getElementById("box");
+    var ne = document.createElement('p2');
+    //文字色変更
+    if (text.indexOf(p2) != -1){
+        var ne = document.createElement('p3');
+        console.log("3");
+    }
+    if(text.indexOf(p1) != -1){
+        var ne = document.createElement('p4');
+        console.log("4");
+    }
+    if(text.indexOf(p1+"の答え") != -1){
+        var ne = document.createElement('p6');
+        console.log("6");
+    }
+    if(text.indexOf("！") != -1){
+        var ne = document.createElement('p5');
+        console.log("5");
+    }
+    if(text.indexOf("!") != -1){
+        var ne = document.createElement('p5');
+        console.log("5");
+    }
+    ne.textContent = text;
+    textbox_element.appendChild(ne);
+    var ne = document.createElement('br');
+    textbox_element.appendChild(ne);
+    var elm = document.documentElement;
+    var bottom = elm.scrollHeight - elm.clientHeight;
+    //window.scroll(0, bottom);
+    scrollBy(0, 500);
+}
+</script>
+<script>
+fetch("https://script.google.com/macros/s/AKfycbx90DzziAA6Y6xE_otk2x3h8w1w9IrnLDLbwPg_bqhJUlhGilrCXoAg5jdZAuo2hRIH/exec", { method: "post",headers: {"Content-Type": "application/x-www-form-urlencoded","Accept": "plain/text",}})
+.then((response) => {response.text().then((text) => {document.getElementById("load").innerHTML="あなたたちは"+text+"組目のプレイヤーです。";});})
+function jed(strg,str) {
+    eat =0;
+    bite =0;
+    var text1 = strg[0];//1
+    var text2 = strg[1];//2
+    var text3 = strg[2];//3
+    if (str.indexOf(text1) !== -1){//1=1
+        if (str[0] == text1){
+            eat++;
+            console.log("1:eat");
+        }else{
+            bite++;
+            console.log("1:bite");
+        }
+    }
+    if (str.indexOf(text2) !== -1){
+        if (str[1] == text2){
+            eat++;
+            console.log("2:eat");
+        }else{
+            bite++;
+            console.log("2:bite");
+        }
+    }
+    if (str.indexOf(text3) !==-1){
+        if (str[2] == text3){
+            eat++;
+            console.log("3:eat");
+        }else{
+            bite++;
+            console.log("3:bite");
+        }
+    }
+}
+function attack(){
+    document.getElementById('rbb').remove();
+    document.removeEventListener('click',attack)
+    mes("======================");
+    var a=window.prompt(p1+"のターンです。相手の数字だと思うものを入力してください。");
+    b=key(a);
+    jed(b,p2a);
+    mes(p1+"は"+a+"とコールし、結果は「"+bite+"バイト、"+eat+"イート」でした。");
+    if(eat==3){mes(p1+"が勝利しました!!");
+    element = document.getElementById('box');
+    element.insertAdjacentHTML('afterend', '<input type="button" value="このページを再読込してリセットする" onclick="window.location.reload();" />');
+    element = document.getElementById('box');
+    element.insertAdjacentHTML('afterend', '<input type="button" value="ソースコードを見たい？" onclick="link2()" />');
+    return;
+    }
+    mes("======================");
+    element2.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+        let button2 = document.getElementById('rbb');
+        button2.addEventListener('click',attack2);
+    function attack2(){
+        document.getElementById('rbb').remove();
+        document.removeEventListener('click',attack)
+        var a=window.prompt(p2+"のターンです。相手の数字だと思うものを入力してください。");
+        b=key(a);
+        jed(b,p1a);
+        mes(p2+"は"+a+"とコールし、結果は「"+bite+"バイト、"+eat+"イート」でした。");
+        if(eat==3){mes(p2+"が勝利しました!!");
+        element = document.getElementById('box');
+        element.insertAdjacentHTML('afterend', '<input type="button" value="このページを再読込してリセットする" onclick="window.location.reload();" />');
+        element = document.getElementById('box');
+        element.insertAdjacentHTML('afterend', '<input type="button" value="ソースコードを見たい？" onclick="link2()" />');
+        return;}
+        element2.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+        let button2 = document.getElementById('rbb');
+        button2.addEventListener('click',attack);
+    }
+}
+function start(){
+    p1=window.prompt("プレイヤー1の名前を教えてください。")
+    p2=window.prompt("プレイヤー2の名前を教えてください。")
+    p1a=ans(p1);
+    p2a=ans(p2);
+    mes(p1+"の答え:???");
+    mes(p2+"の答え:???");
+    element2.insertAdjacentHTML('afterend', '<input type="button" value="続行するには、このボタンを押してください。" id="rbb">');
+        let button2 = document.getElementById('rbb');
+        button2.addEventListener('click',attack);
+
+}
+</script>
